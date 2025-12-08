@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French with Naresh | Expert Tutor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary: #0f3460;   
+            --secondary: #e94560; 
+            --bg-light: #f9fbfc;  
+            --text-dark: #1a1a2e;
+            --text-gray: #6b7280;
+            --white: #ffffff;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth; /* Smooth scroll when clicking nav links */
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden; /* Prevents horizontal scrollbar during animations */
+        }
+
+        a { text-decoration: none; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- ANIMATION CLASSES --- */
+        .reveal {
+            position: relative;
+            opacity: 0;
+            transition: 1s all ease;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Slide Up */
+        .fade-bottom {
+            transform: translateY(50px);
+        }
+
+        /* Slide In From Left */
+        .fade-left {
+            transform: translateX(-50px);
+        }
+
+        /* Slide In From Right */
+        .fade-right {
+            transform: translateX(50px);
+        }
+
+        /* Staggered delay for cards */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .text-center { text-align: center; }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--white);
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 14px rgba(233, 69, 96, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.25rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 60px auto;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        nav ul { display: flex; gap: 30px; }
+        
+        nav ul li a {
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        nav ul li a:hover { color: var(--secondary); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            padding: 120px 0 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 24px;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- TRUST STRIP --- */
+        .trust-strip {
+            background: var(--primary);
+            color: var(--white);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .trust-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .check-icon {
+            background: rgba(255,255,255,0.2);
+            padding: 5px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            font-size: 14px;
+        }
+
+        /* --- ABOUT --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .credentials {
+            margin-top: 30px;
+            background: var(--bg-light);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .credentials li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-dark);
+        }
+
+        /* --- STATS --- */
+        .stats-section {
+            background: var(--primary);
+            color: var(--white);
+            padding: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+            divide-x: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- TESTIMONIALS --- */
+        .testimonials { background: var(--bg-light); }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .review-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: 0.3s;
+            border: 1px solid #f0f0f0;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: var(--primary);
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quote {
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .student-name {
+            font-weight: 700;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* --- CONTACT --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            margin-top: 40px;
+        }
+
+        .contact-info p {
+            margin-bottom: 20px;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        form {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid #eee;
+        }
+
+        .form-group { margin-bottom: 24px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: 0.2s;
+            outline: none;
+            background: #f9fafb;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(15, 52, 96, 0.1);
+        }
+
+        .form-btn {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .form-btn:hover { background: #0a2545; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--primary);
+            color: rgba(255,255,255,0.7);
+            padding: 40px 0;
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .about-grid, .contact-wrapper, .stats-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Prof. Naresh</div>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#success">Results</a></li>
+                    <li><a href="#contact" style="color: var(--secondary); font-weight: 700;">Book a Demo</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero reveal fade-bottom">
+        <div class="container">
+            <h1>Master French with an Expert</h1>
+            <p>Simplifying French grammar for Indian students. Specialized coaching for School Boards, DELF, and Canada TEF.</p>
+            <a href="#contact" class="btn">Start Your Journey</a>
+        </div>
+    </section>
+
+    <div class="trust-strip reveal fade-bottom delay-200">
+        <div class="container trust-content">
+            <span class="check-icon">✓</span>
+            <span>Former Faculty at 5+ International Schools (IB & IGCSE)</span>
+        </div>
+    </div>
+
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="reveal fade-left">
+                    <img src="public/profile.png" alt="Rohan Tutor" class="about-img">
+                </div>
+                <div class="reveal fade-right">
+                    <h2>Bonjour, I am Naresh Guttula.</h2>
+                    <p style="margin-bottom: 20px; color: #555;">
+                        Learning a language is more than just vocabulary; it's about confidence. With an Indian background, I understand the phonetics and grammatical challenges you face when learning French. I use comparative techniques (Hindi/English vs French) to make concepts stick.
+                    </p>
+                    <p style="color: #555;">
+                        Having taught in top-tier educational ecosystems, I bring the structure of a classroom with the personalized attention of a private tutor.
+                    </p>
+
+                    <div class="credentials">
+                        <ul>
+                            <li><strong>✓ Experience:</strong> Taught in 5+ International Schools</li>
+                            <li><strong>✓ Curriculum Expert:</strong> IGCSE, CBSE, SSC</li>
+                            <li><strong>✓ Certified:</strong> DALF B2 (Ministry of Education, France)</li>
+                            <li><strong>✓ Specialization:</strong> Exam Prep & Accent Correction</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section reveal fade-bottom">
+        <div class="container">
+            <div class="stats-grid">
+                <div>
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Students Taught</div>
+                </div>
+                <div>
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Exam Pass Rate</div>
+                </div>
+                <div>
+                    <div class="stat-number">8+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="success" class="section-padding testimonials">
+        <div class="container">
+            <div class="text-center reveal fade-bottom">
+                <h2>Student Results</h2>
+                <p class="subtitle">From failing grades to distinctions, and from beginners to fluent speakers.</p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="review-card reveal fade-bottom">
+                    <span class="tag">DELF A1</span>
+                    <p class="quote">"I passed my A1 exam for university application in France. Rohan sir's focus on the speaking section was the game changer."</p>
+                    <p class="student-name">— Rishan</p>
+                </div>
+                <div class="review-card reveal fade-bottom delay-100">
+                    <span class="tag">TEF Canada</span>
+                    <p class="quote">"Needed CLB 7 for immigration. The structured approach to the listening section helped me score the required points."</p>
+                    <p class="student-name">— Rajesh K.</p>
+                </div>
+                <div class="review-card reveal fade-bottom delay-200">
+                    <span class="tag">CBSE Class 10</span>
+                    <p class="quote">"I've been studying with Sir for the past 6 years, and his consistent guidance helped me score 94% in my CBSE Boards."</p>
+                    <p class="student-name">— Pradhyumna</p>
+                </div>
+                <div class="review-card reveal fade-bottom delay-300">
+                    <span class="tag">SSC</span>
+                    <p class="quote">"I was struggling with French in Grade 11 SSC. Within 3 months, I secured 99% in my boards"</p>
+                    <p class="student-name">— Rounak </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding reveal fade-bottom">
+        <div class="container">
+            <div class="text-center">
+                <h2>Get in Touch</h2>
+                <p class="subtitle">Book a free 20-minute Demo.</p>
+            </div>
+
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <p><span class="contact-icon">📞</span> +91 92478 32019</p>
+                    <p><span class="contact-icon">✉️</span> nareshguttula@gmail.com</p>
+                    <p><span class="contact-icon">📍</span> Online (Zoom/Meet) & Hyderabad</p>
+                    
+                    <div style="margin-top: 30px; background: #f3f4f6; padding: 20px; border-radius: 8px;">
+                        <strong style="color:var(--primary)">Note for Parents:</strong>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">Please mention the student's current grade and curriculum (CBSE/IGCSE/IB) in the message for a better assessment.</p>
+                    </div>
+                </div>
+
+                <form action="mailto:nareshguttula@gmail.com" method="post" enctype="text/plain">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" required placeholder="Student or Parent Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" name="phone" placeholder="+91...">
+                    </div>
+                    <div class="form-group">
+                        <label>Message / Learning Goal</label>
+                        <textarea name="message" rows="4" placeholder="I am interested in..."></textarea>
+                    </div>
+                    <button type="submit" class="form-btn">Send Enquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2025 French with Naresh. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150; // trigger point
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+
+        reveal();
+    </script>
+
+</body>
+</html>
